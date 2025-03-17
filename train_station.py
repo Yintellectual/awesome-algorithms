@@ -3,28 +3,26 @@ from collections import deque
 
 
 def minimumPlatform(arr,dep):
-    train_list = []
-    for i in range(len(arr)):
-        train = [arr[i], dep[i]]
-        train_list.append(train)
-    train_list.sort(key=lambda x: x[0])
-    #print(train_list)
-    max_platform = 0
-    platform_count = 0
-    trains_on_platform = [False] * len(arr)
-    for i in range(len(train_list)):
-        for j in range(len(trains_on_platform)):
-            if trains_on_platform[j] == True:
-                if train_list[j][1] < train_list[i][0]:
-                    trains_on_platform[j] = False
-        trains_on_platform[i] = True
+        arr.sort()
+        dep.sort()
+        i = 0
+        j = 0
         platform_count = 0
-        for b in trains_on_platform:
-            if b == True:
+        max_platform = 0
+        while i < len(arr) and j < len(dep):
+            if arr[i] <= dep[j]:
                 platform_count += 1
-        max_platform = max(max_platform, platform_count)
-        #print(f"trains_on_platform: {platform_count: }{trains_on_platform}")
-    return max_platform
+                i += 1
+            else: 
+                #arr[i] > dep[j]:
+                platform_count -= 1
+                j += 1
+            max_platform = max(max_platform, platform_count)
+        return max_platform
+            
+
+
+
         
 
 if __name__ == "__main__":
