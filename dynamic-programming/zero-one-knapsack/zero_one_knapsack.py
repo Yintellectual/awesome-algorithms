@@ -1,5 +1,6 @@
 def knapsack(w, val, wt):
     dp = [0]*(w+1)
+    optimized_combination = [""]*(w+1)
     for i in range(len(wt)):
         weight = wt[i]
         if(weight > w):
@@ -9,8 +10,9 @@ def knapsack(w, val, wt):
             old_value = dp[j]
             new_value = dp[j-weight] + val[i]
             dp[j] = max(old_value, new_value)
+            optimized_combination[j] = optimized_combination[j-weight] + f"({wt[i]},{val[i]}) "
         
-    return dp[w]
+    return dp[w], optimized_combination[w]
 
 
 
